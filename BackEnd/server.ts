@@ -31,7 +31,7 @@ app.post('/api/files',upload.single('file') ,async(req,res) =>{
         const csv = Buffer.from(file.buffer).toString('utf-8')
         console.log(csv);
         //Transform string to JSON
-        json  = csvToJson.csvStringToJson(csv)
+        json  = csvToJson.fieldDelimiter(',').csvStringToJson(csv)
     } catch (error) {
         return res.status(500).json({ message : "Error parsing Array File"})
     }
@@ -42,7 +42,7 @@ app.post('/api/files',upload.single('file') ,async(req,res) =>{
     return res.status(200).json({data:json, message:"El archivo se cargo correctamente"})
 })
 
-app.get('/api/user',async (req,res)=>{
+app.get('/api/users',async (req,res)=>{
     //Extract query params q from request
     const { q } = req.query
     // Validate that we have the query
