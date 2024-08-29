@@ -43,8 +43,24 @@ app.post('/api/files',upload.single('file') ,async(req,res) =>{
 })
 
 app.get('/api/user',async (req,res)=>{
-
-    return res.status(200).json({data:[]})
+    //Extract query params q from request
+    const { q } = req.query
+    // Validate that we have the query
+    if(!q){
+        return res.status(500).json({ message : "QueryParams q no found"})
+    }
+    if(Array.isArray(q)){
+        return res.status(500).json({ message : "QueryParams q must be a string"})
+    }
+    //Filter data from db(or memory) with query params
+    const search = q.toString().toLowerCase()
+    const filteredData = userData.filter((row)=>{
+        return Object
+            .values(row)
+            .some(value => value.toLowerCase().includes(search))
+    })
+    //Return data and statuscode 200
+    return res.status(200).json({ data: filteredData })
 })
 
 app.listen(port ,()=>{
