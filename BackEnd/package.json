@@ -1,5 +1,5 @@
 {
-  "name": "carga_csv",
+  "name": "BackEnd",
   "version": "1.0.0",
   "description": "Proyecto para cargar un csv desde y visualizarlo en la vista, creada con react ademas tiene uns END-POINTS, para hacer peteicones al back",
   "main": "index.js",
